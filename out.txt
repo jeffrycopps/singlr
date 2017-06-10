@@ -1,0 +1,13 @@
+connected as id 1221
+get_apartment_by_id
+Input: {"id":2}
+null
+[ RowDataPacket {
+    id: 2,
+    c_apartment_name: 'polo',
+    c_apartment_username: 'erer',
+    c_apartment_password: 'erer' } ]
+connected as id 1222
+get_apartment_by_id
+Input: {"id":200}
+null
