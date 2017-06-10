@@ -1,0 +1,182 @@
+
+API SERVICE SPECS
+
+CATEGORY
+1. ADD_CATEGORY
+Would contain category name, ID and a description. 
+Sample input: 
+{
+category_name: “milk”, 
+category_description: “A generic milk category which will be referred from all milk brands”
+}
+Add content would auto-generate an ID for the same which is taken care by the backend DB.
+
+2. UPDATE_CATEGORY
+Should not be allowed as category name is all the only important entity in the table. 
+Will be useful for updating any typographical errors and also for adding content in description field. 
+ID field will never be allowed to be modified. 
+Sample input: 
+{
+category_id: “10098456ER1”,
+category_name: “milk”, 
+category_description: “A generic milk category which will be referred from all milk brands”
+}
+ID field will be used to uniquely identify the record to be updated and hence needed in the request. 
+
+3. DELETE_CATEGORY
+Delete category will be useful in the case when a category is no longer needed in the app.
+ Delete category service will also make sure that no brand or product has a reference before deletion. 
+If there is any product having a reference to category which is going to be deleted, the service call will have to respond a negative acknowledgement. 
+Sample input:		
+{
+category_id: “10098456ER1”
+}
+
+4. GET_ALL_CATEGORIES
+This will return all the categories in JSON format. Good to avoid using this except in situation where there is a need to check for any attributes in the categories. 
+
+5. GET_CATEGORIES_BY_PAGE
+This service is useful where we are going to show all the categories in a view. Printing all the content in a single page is not wise, and so we will use pagination here. 
+Sample input:
+{
+	Page_no: 1
+
+{
+	Page_no: 2
+}
+6. GET_CATEGORY_BY_ID
+Self-explanatory.
+Sample Input: 
+{
+	category_id: “110022”
+}
+7. GET_CATEGORY_BY_NAME
+Sample Input:
+		{
+	category_name: “MILK”
+}
+
+BRAND
+1. ADD_BRAND
+Each brand which goes into Brand model will have a reference to an entry in category.
+“VIJAYA” is an example which will map to “MILK” category.
+Sample Input:
+{
+	Brand_name: “VIJAYA”, 
+	category_id: Refers MILK’s ID in Category table.
+}
+2. UPDATE_BRAND 
+Sample Input:
+{
+	Brand_id: “11223344”
+	Brand_name: “VIJAYA”, 
+	category_id: Refers MILK’s ID in Category table.
+}
+3. DELETE_BRAND 
+Sample Input:
+{
+	Brand_id: “11223344”
+}
+4. GET_BRAND_BY_ID
+Sample Input:
+{
+	Brand_id: “11223344”
+}
+5. GET_BRAND_BY_NAME
+Sample Input:
+{
+	Brand_name: “VIJAYA”
+}
+CATEGORY - BRAND
+1. GET_CATEGORY_BY_BRAND_ID
+Sample Input:
+{
+	Brand_id: “11223344”
+}
+2. GET_CATEGORY_BY_BRAND_NAME
+Sample Input:
+{
+	Brand_name: “VIJAYA”
+}
+3. GET_BRANDS_BY_CATEGORY_ID
+Sample Input:
+{
+	category_id: “11223344”
+}
+4. GET_BRANDS_BY_CATEGORY_NAME
+Sample Input:
+{
+	category_name: “VIJAYA”
+}
+
+VENDOR
+1. ADD_VENDOR
+One of the most important part of the admin app is the add vendor function. 
+Adding vendor is done by the agent person who approaches a vendor. 
+It would contain all details about the vendor starting from his name to where he is going to serve. 
+Sample input:
+{
+	Vendor_name: “Sree Chandu”,
+	Firm_name: “Utilize”,
+	Address_line_ONE: “LOTUS APARTMENT, HITECHCITY,”,
+	Address_line_TWO: “Madhapur”,
+	PIN_CODE: “500081”,
+	Servicing_Area:
+	{
+		Madhapur,
+		Gachibowli
+	},
+	Service_ID: “112233”		
+}
+
+2. UPDATE_VENDOR
+Sample input:
+{
+	Vendor_ID: “112233”,
+	Vendor_name: “Sree Chandu”,
+	Firm_name: “Utilize”,
+	Address_line_ONE: “LOTUS APARTMENT, HITECHCITY,”,
+	Address_line_TWO: “Madhapur”,
+	PIN_CODE: “500081”,
+	Servicing_Area:
+	{
+		Madhapur,
+		Gachibowli
+	},
+Service_ID: “112233”		
+}
+3. DELETE_VENDOR
+Sample Input: 
+{
+	Vendor_ID: “112233”
+}
+SERVICES
+1. ADD_SERVICE
+Sample Input:
+{
+	VendorID: Refers Vendors model.
+	Category: MILK,
+	CategorySpecificProperties:
+	{
+		Quantity: 500ml,
+		Price: 25Rs
+	}
+}
+2. UPDATE_SERVICE
+Sample Input:
+{
+	ServiceID: “112233”,
+	VendorID: Refers Vendors model.
+	Category: MILK,
+	CategorySpecificProperties:
+	{
+		Quantity: 500ml,
+		Price: 25Rs
+	}
+}
+4. DELETE_SERVICE
+Sample Input:
+{
+	ServiceID: “112233”
+}
+
